@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "rx-works-is": {
+      "hosting": {
+        "rx-works": [
+          "rx-works-is"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "rx-works-is"
+  }
+}

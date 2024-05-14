@@ -1,11 +1,21 @@
-<form>
-  <fieldset>
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <fieldset class="mb-4">
     <label for="title" class="text-sm font-medium text-gray-900"> title </label>
+    &nbsp;
     <input
+      [formControl]="title"
       type="text"
       id="title"
       class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300"
     />
   </fieldset>
-  <button type="submit" class="rounded-md">Confirm</button>
+  <button [disabled]="editForm.invalid || editForm.disabled" type="submit">
+    Confirm
+  </button>
 </form>
+
+<p>
+  @if (value$ | async; as value) {
+  {{ value }}
+  }
+</p>
