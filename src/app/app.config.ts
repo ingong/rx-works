@@ -9,5 +9,23 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), importProvidersFrom(provideFirebaseApp(() => initializeApp({"projectId":"rx-works-is","appId":"1:85196578075:web:6cf37780415f9369d887be","storageBucket":"rx-works-is.appspot.com","apiKey":"AIzaSyDAKSGSnITZprurAOVdZ8oc8qOEp1JzzRI","authDomain":"rx-works-is.firebaseapp.com","messagingSenderId":"85196578075"}))), importProvidersFrom(provideAuth(() => getAuth())), importProvidersFrom(provideFirestore(() => getFirestore())), importProvidersFrom(provideDatabase(() => getDatabase())), importProvidersFrom(provideFunctions(() => getFunctions()))]
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(
+      provideFirebaseApp(() =>
+        initializeApp({
+          projectId: 'rx-works-is',
+          appId: '1:85196578075:web:6cf37780415f9369d887be',
+          storageBucket: 'rx-works-is.appspot.com',
+          apiKey: 'AIzaSyDAKSGSnITZprurAOVdZ8oc8qOEp1JzzRI',
+          authDomain: 'rx-works-is.firebaseapp.com',
+          messagingSenderId: '85196578075',
+        })
+      )
+    ),
+    importProvidersFrom(provideAuth(() => getAuth())),
+    importProvidersFrom(provideFirestore(() => getFirestore())),
+    importProvidersFrom(provideDatabase(() => getDatabase())),
+    importProvidersFrom(provideFunctions(() => getFunctions())),
+  ],
 };

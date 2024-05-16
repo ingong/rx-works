@@ -1,4 +1,6 @@
 <h1 class="text-2xl font-bold tracking-tight text-gray-900">
   Create Chattings
 </h1>
-<app-chattings-edit-form></app-chattings-edit-form>
+<app-chattings-edit-form
+  (update)="onUpdateForm($event)"
+></app-chattings-edit-form>

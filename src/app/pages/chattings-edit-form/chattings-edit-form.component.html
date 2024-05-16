@@ -1,4 +1,4 @@
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="editForm" (ngSubmit)="onSubmit($event)">
   <fieldset class="mb-4">
     <label for="title" class="text-sm font-medium text-gray-900"> title </label>
     &nbsp;
@@ -13,9 +13,3 @@
     Confirm
   </button>
 </form>
-
-<p>
-  @if (value$ | async; as value) {
-  {{ value }}
-  }
-</p>

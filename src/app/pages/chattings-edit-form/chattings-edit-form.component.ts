@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NewChatting } from '@app/core/model/chatting';
 import { tap } from 'rxjs';
 
 @Component({
@@ -20,16 +21,20 @@ export class ChattingsEditFormComponent {
     title: new FormControl('', { validators: [Validators.required] }),
   });
 
-  value$ = this.title.valueChanges.pipe(tap((v) => console.log(v)));
-
   get title() {
     return this.editForm.controls['title'];
   }
 
-  protected onSubmit() {
+  update = output<NewChatting>();
+
+  protected onSubmit(e: SubmitEvent) {
+    e.preventDefault();
+
     this.editForm.disable();
-    const newChattings = {
-      title: this.title.value,
+    const newChatting = {
+      title: this.title.value as string,
     };
+
+    this.update.emit(newChatting);
   }
 }
