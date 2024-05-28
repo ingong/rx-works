@@ -2,6 +2,7 @@ import { Timestamp, FieldValue } from '@angular/fire/firestore';
 
 export type Chatting = {
   id: string;
+  uid: string;
   title: string;
   created: Timestamp | FieldValue;
 };
