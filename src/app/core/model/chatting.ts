@@ -4,7 +4,7 @@ export type Chatting = {
   id: string;
   uid: string;
   title: string;
-  created: Timestamp | FieldValue;
+  created: Timestamp;
 };
 
 export type NewChatting = Omit<Chatting, 'id' | 'created'> & {

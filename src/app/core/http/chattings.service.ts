@@ -1,11 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { NewChatting } from '../model/chatting';
+import { Chatting, NewChatting } from '../model/chatting';
 import {
   Firestore,
   addDoc,
   collection,
+  collectionData,
   serverTimestamp,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +25,13 @@ export class ChattingsService {
     };
 
     return addDoc(collection(this.#fireStore, this.#path), chatting);
+  }
+
+  getChattings() {
+    // collectionReference를 인자로 전달
+    // observable을 return
+    return collectionData(collection(this.#fireStore, this.#path), {
+      idField: 'id',
+    }) as Observable<Chatting[]>;
   }
 }
