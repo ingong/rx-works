@@ -1,9 +1,17 @@
 <h1 class="text-3xl mb-4">Hello world!</h1>
 
-@if(chattings$ | async; as chattings) {
+@if(chattings$ | async; as chattings) { @if (uid$ | async; as uid) {
+<div>currentuid : {{ uid }}</div>
+}
+
 <ul class="mb-4">
   @for (chatting of chattings; track chatting.id) {
-  <li>{{ chatting.id }} {{ chatting.created | fsTimestampToDistance }}</li>
+  <li>
+    {{ chatting.id }} {{ chatting.created | fsTimestampToDistance }} -
+    <a [routerLink]="['./']" [queryParams]="{ uid: chatting.uid }">
+      {{ chatting.uid | slice : 0 : 5 }}
+    </a>
+  </li>
   }
 </ul>
 }
