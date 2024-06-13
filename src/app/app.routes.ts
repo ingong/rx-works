@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { chattingsRoutes } from './pages/chattings/chattings.routes';
+import { authRoutes } from './pages/auth/auth.routes';
 
 export const routes: Routes = [
   {
@@ -6,18 +8,6 @@ export const routes: Routes = [
     redirectTo: 'chattings',
     pathMatch: 'full',
   },
-  {
-    path: 'chattings',
-    loadComponent: () =>
-      import('./pages/chattings/chattings.component').then(
-        (c) => c.ChattingsComponent
-      ),
-  },
-  {
-    path: 'chattings/new/edit',
-    loadComponent: () =>
-      import('./pages/chattings-write/chattings-write.component').then(
-        (c) => c.ChattingsWriteComponent
-      ),
-  },
+  ...chattingsRoutes,
+  ...authRoutes,
 ];

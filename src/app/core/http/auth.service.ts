@@ -13,4 +13,8 @@ export class AuthService {
     const credential = await signInAnonymously(this.#auth);
     console.log(credential);
   }
+
+  async signOut() {
+    return this.#auth.signOut();
+  }
 }

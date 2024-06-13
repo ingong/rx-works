@@ -9,12 +9,4 @@ import { AuthService } from './core/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  title = 'rx-works';
-
-  readonly #authService = inject(AuthService);
-
-  async ngOnInit() {
-    await this.#authService.signInAnonymously();
-  }
-}
+export class AppComponent {}
