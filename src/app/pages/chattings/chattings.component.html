@@ -7,7 +7,10 @@
 <ul class="mb-4">
   @for (chatting of chattings; track chatting.id) {
   <li>
-    {{ chatting.id }} {{ chatting.created | fsTimestampToDistance }} -
+    <a [routerLink]="['./', chatting.id]">
+      {{ chatting.title }}
+    </a>
+    {{ chatting.created | fsTimestampToDistance }} -
     <a [routerLink]="['./']" [queryParams]="{ uid: chatting.uid }">
       {{ chatting.uid | slice : 0 : 5 }}
     </a>
@@ -16,4 +19,4 @@
 </ul>
 }
 
-<a [routerLink]="'/chattings/new/edit'">Create</a>
+<a [routerLink]="['/chattings', 'new', 'edit']">Create</a>
