@@ -28,5 +28,8 @@ export class ChattingComponent {
 
   message$ = this.message.valueChanges;
 
-  protected onSubmit(e: SubmitEvent) {}
+  protected onSubmit(e: SubmitEvent) {
+    this.chattingForm.disable();
+    console.log(this.chattingForm.value);
+  }
 }
