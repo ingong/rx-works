@@ -1,0 +1,35 @@
+<p>chatting works</p>
+
+<form [formGroup]="chattingForm" (ngSubmit)="onSubmit($event)">
+  <input
+    [formControl]="message"
+    class="border rounded mr-1 px-2 focus:outline-none"
+  />
+
+  <button
+    type="submit"
+    class="border rounded px-1 text-gray-600 disabled:text-gray-100"
+    [disabled]="chattingForm.invalid"
+  >
+    전송
+  </button>
+</form>
+
+@if (message.invalid && (message.touched || message.dirty)) { @if
+(message.errors?.['required']) {
+<p class="text-red-500">입력해</p>
+} @else if (message.errors?.['minlength']) {
+<p class="text-red-500">
+  {{message.errors?.['minlength'].requiredLength}} 이상을 입력해
+</p>
+} }
+
+<p>
+  touched : {{ message.touched }} <br />
+  dirty : {{ message.dirty }} <br />
+  invalid: {{ message.invalid }} <br />
+  valid: {{ message.valid }} <br />
+</p>
+
+<!-- form, architecture (guard, pipe), router -->
+<!-- 개념을 배울 수 있다 -->
