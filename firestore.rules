@@ -8,6 +8,11 @@ service cloud.firestore {
     match /chattings/{chattingId} {
       allow read: if true;
       allow write: if request.auth.uid != null;
+
+      match /messages/{messageId} {
+        allow read: if request.auth.uid != null;
+        allow write: if request.auth.uid != null; 
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Message, NewMessage } from '../model/message';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +42,19 @@ export class ChattingsService {
     return collectionData(_query, {
       idField: 'id',
     }) as Observable<Chatting[]>;
+  }
+
+  addMessage(chattingId: string, message: NewMessage) {
+    return addDoc(
+      collection(this.#fireStore, this.#path, chattingId, 'messages'),
+      message
+    );
+  }
+
+  getMessages(chattingId: string) {
+    const ref = collection(this.#fireStore, this.#path, chattingId, 'messages');
+    const _query = query(ref, orderBy('created', 'asc'));
+
+    return collectionData(_query, { idField: 'id' }) as Observable<Message[]>;
   }
 }

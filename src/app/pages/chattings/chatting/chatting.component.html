@@ -1,8 +1,16 @@
-<p>chatting works</p>
+@if(message$ | async; as messages) {
+<ul>
+  @for (message of messages; track $index) {
+  <li>
+    {{ message.body }}
+  </li>
+  }
+</ul>
+}
 
 <form [formGroup]="chattingForm" (ngSubmit)="onSubmit($event)">
   <input
-    [formControl]="message"
+    [formControl]="body"
     class="border rounded mr-1 px-2 focus:outline-none"
   />
 
@@ -15,20 +23,20 @@
   </button>
 </form>
 
-@if (message.invalid && (message.touched || message.dirty)) { @if
-(message.errors?.['required']) {
+@if (body.invalid && (body.touched || body.dirty)) { @if
+(body.errors?.['required']) {
 <p class="text-red-500">입력해</p>
-} @else if (message.errors?.['minlength']) {
+} @else if (body.errors?.['minlength']) {
 <p class="text-red-500">
-  {{message.errors?.['minlength'].requiredLength}} 이상을 입력해
+  {{body.errors?.['minlength'].requiredLength}} 이상을 입력해
 </p>
 } }
 
 <p>
-  touched : {{ message.touched }} <br />
-  dirty : {{ message.dirty }} <br />
-  invalid: {{ message.invalid }} <br />
-  valid: {{ message.valid }} <br />
+  touched : {{ body.touched }} <br />
+  dirty : {{ body.dirty }} <br />
+  invalid: {{ body.invalid }} <br />
+  valid: {{ body.valid }} <br />
 </p>
 
 <!-- form, architecture (guard, pipe), router -->

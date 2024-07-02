@@ -15,6 +15,6 @@ export class ChattingsWriteComponent {
   readonly $chattingService = inject(ChattingsService);
   protected async onUpdateForm(chatting: NewChatting) {
     const result = await this.$chattingService.addChattings(chatting);
-    console.log('result ===>', result);
+    // console.log('result ===>', result);
   }
 }

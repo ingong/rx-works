@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { serverTimestamp } from '@angular/fire/firestore';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { filter, map, first, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ChattingsService } from '@app/core/http';
+import { NewMessage } from '@app/core/model/message';
+import { isNil, isNotNil } from 'rambda';
 
 @Component({
   selector: 'app-chatting',
@@ -16,20 +22,39 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChattingComponent {
+  readonly #activatedRoute = inject(ActivatedRoute);
+  readonly #chattingsService = inject(ChattingsService);
+
   chattingForm = new FormGroup({
-    message: new FormControl('', {
+    body: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3)],
     }),
   });
 
-  get message() {
-    return this.chattingForm.controls.message;
+  get body() {
+    return this.chattingForm.controls.body;
   }
 
-  message$ = this.message.valueChanges;
+  message$ = this.#activatedRoute.paramMap.pipe(
+    map((e) => e.get('chattingId')),
+    filter(isNotNil),
+    switchMap((chattingId) => this.#chattingsService.getMessages(chattingId))
+  );
 
-  protected onSubmit(e: SubmitEvent) {
+  protected async onSubmit(e: SubmitEvent) {
     this.chattingForm.disable();
-    console.log(this.chattingForm.value);
+    const chattingId = this.#activatedRoute.snapshot.paramMap.get('chattingId');
+    if (chattingId) {
+      const newMessage = {
+        ...this.chattingForm.value,
+        chattingId: '',
+        created: serverTimestamp(),
+      } as NewMessage;
+
+      await this.#chattingsService.addMessage(chattingId, newMessage);
+
+      this.chattingForm.reset();
+      this.chattingForm.enable();
+    }
   }
 }
